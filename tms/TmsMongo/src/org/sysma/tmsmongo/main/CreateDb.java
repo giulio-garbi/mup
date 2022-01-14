@@ -93,7 +93,7 @@ public class CreateDb {
 		return ans;
 	}
 	
-	public static void main(String[] args) throws Exception {
+	public static void main() throws Exception {
 		int nCategories = 10;
 		int nQperCat = 15;
 		int nConfs = 50;
