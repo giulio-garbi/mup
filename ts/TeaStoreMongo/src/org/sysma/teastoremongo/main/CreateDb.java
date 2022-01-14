@@ -12,7 +12,7 @@ import com.mongodb.client.MongoDatabase;
 
 public class CreateDb {
 
-	public static void main(String[] args) {
+	public static void main() {
 		try(MongoClient client = MongoClients.create()){
 			MongoDatabase mdb = client.getDatabase("teastore");
 			makeUsers(mdb, 1000);
