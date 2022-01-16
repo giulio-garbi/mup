@@ -1,0 +1,85 @@
+#parse( "templates/IncludeTop.vm" )
+
+<div id="Catalog">
+<form method="post" action="/order/newOrder">
+	<input type="hidden" name="order_orderDate" value="$order_orderDate" />
+	<input type="hidden" name="order_shipToFirstName" value="" />
+	<input type="hidden" name="order_shipToLastName" value="" />
+	<input type="hidden" name="order_shipAddress1" value="" />
+	<input type="hidden" name="order_shipAddress2" value="" />
+	<input type="hidden" name="order_shipCity" value="" />
+	<input type="hidden" name="order_shipState" value="" />
+	<input type="hidden" name="order_shipZip" value="" />
+	<input type="hidden" name="order_shipCountry" value="" />
+	<input type="hidden" name="page" value="1" />
+
+	<table>
+		<tr>
+			<th colspan=2>Payment Details</th>
+		</tr>
+		<tr>
+			<td>Card Type:</td>
+			<td><select name="order_cardType">
+				<option>Visa</option>
+				<option>MasterCard</option>
+				<option>American Express</option>
+			</select></td>
+		</tr>
+		<tr>
+			<td>Card Number:</td>
+			<td><input type="text" name="order_creditCard" value="$order.creditCard" /> * Use a fake
+			number!</td>
+		</tr>
+		<tr>
+			<td>Expiry Date (MM/YYYY):</td>
+			<td><input type="text" name="order_expiryDate" value="$order.expiryDate" /></td>
+		</tr>
+		<tr>
+			<th colspan=2>Billing Address</th>
+		</tr>
+
+		<tr>
+			<td>First name:</td>
+			<td><input type="text" name="order_billToFirstName" value="$order.billToFirstName" /></td>
+		</tr>
+		<tr>
+			<td>Last name:</td>
+			<td><input type="text" name="order_billToLastName" value="$order.billToLastName" /></td>
+		</tr>
+		<tr>
+			<td>Address 1:</td>
+			<td><input type="text" size="40" name="order_billAddress1" value="$order.billAddress1" /></td>
+		</tr>
+		<tr>
+			<td>Address 2:</td>
+			<td><input type="text" size="40" name="order_billAddress2" value="$order.billAddress2" /></td>
+		</tr>
+		<tr>
+			<td>City:</td>
+			<td><input type="text" name="order_billCity" value="$order.billCity" /></td>
+		</tr>
+		<tr>
+			<td>State:</td>
+			<td><input type="text" size="4" name="order_billState" value="$order.billState" /></td>
+		</tr>
+		<tr>
+			<td>Zip:</td>
+			<td><input type="text" size="10" name="order_billZip" value="$order.billZip" /></td>
+		</tr>
+		<tr>
+			<td>Country:</td>
+			<td><input type="text" size="15" name="order_billCountry" value="$order.billCountry" /></td>
+		</tr>
+
+		<tr>
+			<td colspan=2><input type="checkbox" name="shippingAddressRequired" />
+			Ship to different address...</td>
+		</tr>
+
+	</table>
+
+	<input type="submit" value="Continue" />
+
+</form></div>
+
+#parse( "templates/IncludeBottom.vm" )

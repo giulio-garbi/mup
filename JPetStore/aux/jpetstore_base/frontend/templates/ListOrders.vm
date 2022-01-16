@@ -1,0 +1,28 @@
+#parse( "templates/IncludeTop.vm" )
+
+<h2>My Orders</h2>
+
+<table>
+	<tr>
+		<th>Order ID</th>
+		<th>Date</th>
+		<th>Total Price</th>
+	</tr>
+
+	#foreach ($order in $orderList)
+		<tr>
+			<td>
+			  <form method="post" action="/order/viewOrder">
+					<input type="hidden" name="orderId" value="$order.orderId">
+					<input type="submit" value="$order.orderId"/>
+				</form>
+			</td>
+			<td>$order.orderDate</td>
+			<td>$order.totalPrice</td>
+		</tr>
+	#end
+</table>
+
+#parse( "templates/IncludeBottom.vm" )
+
+

@@ -1,0 +1,55 @@
+#parse( "templates/IncludeTop.vm" )
+
+<div id="BackLink">
+<form style="display: inline" method="post" name="goback" action="/catalog/viewProduct">
+	<input type="hidden" name="productId" value="$product.productId"> 
+	<a onclick="document.forms['goback'].submit();"> Return to $product.productId </a>
+</form>
+</div>
+
+<div id="Catalog">
+
+<table>
+	<tr>
+		<td>$product.description</td>
+	</tr>
+	<tr>
+		<td><b> $item.itemId </b></td>
+	</tr>
+	<tr>
+		<td><b><font size="4"> $item.attribute1
+		$item.attribute2 $item.attribute3
+		$item.attribute4 $item.attribute5
+		$product.name </font></b></td>
+	</tr>
+	<tr>
+		<td>$product.name</td>
+	</tr>
+	<tr>
+		<td>
+			#if ($item.quantity <= 0)
+				Back ordered.
+			#else
+				$item.quantity in stock.
+			#end
+		</td>
+	</tr>
+	<tr>
+		<td>$ $item.listPrice</td>
+	</tr>
+
+	<tr>
+		<td>
+   		<form style="display: inline" method="post" action="/cart/addItemToCart">
+				<input type="hidden" name="workingItemId" value="$item.itemId"/> 
+				<input type="submit" value="Add to Cart"/> 
+		</form></td>
+	</tr>
+</table>
+
+</div>
+
+#parse( "templates/IncludeBottom.vm" )
+
+
+

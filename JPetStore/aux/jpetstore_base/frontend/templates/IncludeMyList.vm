@@ -1,0 +1,15 @@
+#if ( ! $myList.isEmpty() )
+	<p>Pet Favorites <br />
+	Shop for more of your favorite pets here.</p>
+	<ul>
+		#foreach( $product in $myList )
+			<li>
+				<form method="post" style="display: inline" action="/catalog/viewProduct">
+					<input type="hidden" name="productId" value="$product.productId" />
+					<input type="submit" value="$product.name" />
+				</form>
+				($product.productId)
+			</li>
+		#end
+	</ul>
+#end

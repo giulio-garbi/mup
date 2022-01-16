@@ -1,0 +1,157 @@
+#parse( "templates/IncludeTop.vm" )
+
+<script type="text/javascript">
+	function viewItem(itemid){
+		//...
+		//"/catalog/viewItem" itemId:itemId
+		$("#viId").val(itemid)
+		$("#viForm").submit()
+	}
+</script>
+
+<form method="post" id="viForm" action="/catalog/viewItem">
+	<input type="hidden" id="viId" name="itemId" value="?"/>
+</form>
+
+<div id="BackLink"><a href="/actions/Catalog.action">Return to Main Menu</a></div>
+
+<div id="Catalog">
+
+<table>
+	<tr>
+		<th align="center" colspan="2">Order #$order.orderId
+		$order.orderDate </th>
+	</tr>
+	<tr>
+		<th colspan="2">Payment Details</th>
+	</tr>
+	<tr>
+		<td>Card Type:</td>
+		<td>$order.cardType</td>
+	</tr>
+	<tr>
+		<td>Card Number:</td>
+		<td>$order.creditCard * Fake
+		number!</td>
+	</tr>
+	<tr>
+		<td>Expiry Date (MM/YYYY):</td>
+		<td>$order.expiryDate</td>
+	</tr>
+	<tr>
+		<th colspan="2">Billing Address</th>
+	</tr>
+	<tr>
+		<td>First name:</td>
+		<td>$order.billToFirstName</td>
+	</tr>
+	<tr>
+		<td>Last name:</td>
+		<td>$order.billToLastName</td>
+	</tr>
+	<tr>
+		<td>Address 1:</td>
+		<td>$order.billAddress1</td>
+	</tr>
+	<tr>
+		<td>Address 2:</td>
+		<td>$order.billAddress2</td>
+	</tr>
+	<tr>
+		<td>City:</td>
+		<td>$order.billCity</td>
+	</tr>
+	<tr>
+		<td>State:</td>
+		<td>$order.billState</td>
+	</tr>
+	<tr>
+		<td>Zip:</td>
+		<td>$order.billZip</td>
+	</tr>
+	<tr>
+		<td>Country:</td>
+		<td>$order.billCountry</td>
+	</tr>
+	<tr>
+		<th colspan="2">Shipping Address</th>
+	</tr>
+	<tr>
+		<td>First name:</td>
+		<td>$order.shipToFirstName</td>
+	</tr>
+	<tr>
+		<td>Last name:</td>
+		<td>$order.shipToLastName</td>
+	</tr>
+	<tr>
+		<td>Address 1:</td>
+		<td>$order.shipAddress1</td>
+	</tr>
+	<tr>
+		<td>Address 2:</td>
+		<td>$order.shipAddress2</td>
+	</tr>
+	<tr>
+		<td>City:</td>
+		<td>$order.shipCity</td>
+	</tr>
+	<tr>
+		<td>State:</td>
+		<td>$order.shipState</td>
+	</tr>
+	<tr>
+		<td>Zip:</td>
+		<td>$order.shipZip</td>
+	</tr>
+	<tr>
+		<td>Country:</td>
+		<td>$order.shipCountry</td>
+	</tr>
+	<tr>
+		<td>Courier:</td>
+		<td>$order.courier</td>
+	</tr>
+	<tr>
+		<td colspan="2">Status: $order.status</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<table>
+			<tr>
+				<th>Item ID</th>
+				<th>Description</th>
+				<th>Quantity</th>
+				<th>Price</th>
+				<th>Total Cost</th>
+			</tr>
+			#foreach ($lineItem in $order.lineItems)
+				<tr>
+					<td>
+						<input type="button" value="$lineItem.item_itemId" onclick="viewItem('$lineItem.item_itemId')" /> 
+					</td>
+					<td>
+							$lineItem.item_attribute1
+							$lineItem.item_attribute2
+							$lineItem.item_attribute3
+							$lineItem.item_attribute4
+							$lineItem.item_attribute5
+							$lineItem.item_product_name
+					</td>
+
+					<td>$lineItem.quantity</td>
+					<td>$lineItem.unitPrice</td>
+					<td>$lineItem.total</td>
+				</tr>
+			#end
+			<tr>
+				<th colspan="5">Total: $ $order.totalPrice</th>
+			</tr>
+		</table>
+		</td>
+	</tr>
+
+</table>
+
+</div>
+#parse( "templates/IncludeBottom.vm" )

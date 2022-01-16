@@ -1,0 +1,21 @@
+s;s;s;s;s;s;s;s;s;s;s;s;s;s;s;s;f;s;s;s;s;s;s;s;s
+_id;userid;orderdate;shipaddr1;shipaddr2;shipcity;shipstate;shipzip;shipcountry;billaddr1;billaddr2;billcity;billstate;billzip;billcountry;courier;totalprice;billtofirstname;billtolastname;shiptofirstname;shiptolastname;creditcard;exprdate;cardtype;locale
+-218875474;j2ee;2021-01-20;A1;A2;Ct;St;Zp;Cn;901 San Antonio Road;MS UCUP02-206;Palo Alto;CA;94303;USA;UPS;0;ABC;XYX;FF;LL;999 9999 9999 9999;12/03;Visa;english
+-416941039;j2ee;2021-01-20;A1;A2;Ct;St;Zp;Cn;901 San Antonio Road;MS UCUP02-206;Palo Alto;CA;94303;USA;UPS;0;ABC;XYX;FF;LL;999 9999 9999 9999;12/03;Visa;english
+1371866609;j2ee;2021-01-20;;;;;;;901 San Antonio Road;MS UCUP02-206;Palo Alto;CA;94303;USA;UPS;65;ABC;XYX;;;999 9999 9999 9999;12/03;Visa;english
+1744518046;j2ee;2021-01-20;;;;;;;901 San Antonio Road;MS UCUP02-206;Palo Alto;CA;94303;USA;UPS;65;ABC;XYX;;;999 9999 9999 9999;12/03;Visa;english
+977636691;j2ee;2021-01-20;;;;;;;901 San Antonio Road;MS UCUP02-206;Palo Alto;CA;94303;USA;UPS;65;ABC;XYX;;;999 9999 9999 9999;12/03;Visa;english
+498179271;j2ee;2021-01-20;;;;;;;901 San Antonio Road;MS UCUP02-206;Palo Alto;CA;94303;USA;UPS;65;ABC;XYX;;;999 9999 9999 9999;12/03;Visa;english
+750984133;j2ee;2021-01-20;;;;;;;901 San Antonio Road;MS UCUP02-206;Palo Alto;CA;94303;USA;UPS;65;ABC;XYX;;;999 9999 9999 9999;12/03;Visa;english
+1580509637;j2ee;2021-01-20;;;;;;;901 San Antonio Road;MS UCUP02-206;Palo Alto;CA;94303;USA;UPS;65;ABC;XYX;;;999 9999 9999 9999;12/03;Visa;english
+-1902981755;j2ee;2021-01-20;;;;;;;901 San Antonio Road;MS UCUP02-206;Palo Alto;CA;94303;USA;UPS;65;ABC;XYX;;;999 9999 9999 9999;12/03;Visa;english
+1827812769;j2ee;2021-01-20;;;;;;;901 San Antonio Road;MS UCUP02-206;Palo Alto;CA;94303;USA;UPS;65;ABC;XYX;;;999 9999 9999 9999;12/03;Visa;english
+-1959648826;j2ee;2021-01-20;;;;;;;901 San Antonio Road;MS UCUP02-206;Palo Alto;CA;94303;USA;UPS;65;ABC;XYX;;;999 9999 9999 9999;12/03;Visa;english
+-107311316;j2ee;2021-01-20;;;;;;;901 San Antonio Road;MS UCUP02-206;Palo Alto;CA;94303;USA;UPS;65;ABC;XYX;;;999 9999 9999 9999;12/03;Visa;english
+-1871918281;j2ee;2021-01-20;;;;;;;901 San Antonio Road;MS UCUP02-206;Palo Alto;CA;94303;USA;UPS;65;ABC;XYX;;;999 9999 9999 9999;12/03;Visa;english
+1056084027;j2ee;2021-01-20;;;;;;;901 San Antonio Road;MS UCUP02-206;Palo Alto;CA;94303;USA;UPS;65;ABC;XYX;;;999 9999 9999 9999;12/03;Visa;english
+-808930512;j2ee;2021-01-20;;;;;;;901 San Antonio Road;MS UCUP02-206;Palo Alto;CA;94303;USA;UPS;65;ABC;XYX;;;999 9999 9999 9999;12/03;Visa;english
+916100705;j2ee;2021-01-20;;;;;;;901 San Antonio Road;MS UCUP02-206;Palo Alto;CA;94303;USA;UPS;65;ABC;XYX;;;999 9999 9999 9999;12/03;Visa;english
+1997085615;j2ee;2021-01-20;;;;;;;901 San Antonio Road;MS UCUP02-206;Palo Alto;CA;94303;USA;UPS;65;ABC;XYX;;;999 9999 9999 9999;12/03;Visa;english
+756708783;j2ee;2021-01-20;;;;;;;901 San Antonio Road;MS UCUP02-206;Palo Alto;CA;94303;USA;UPS;65;ABC;XYX;;;999 9999 9999 9999;12/03;Visa;english
+1962113435;j2ee;2021-01-20;;;;;;;901 San Antonio Road;MS UCUP02-206;Palo Alto;CA;94303;USA;UPS;65;ABC;XYX;;;999 9999 9999 9999;12/03;Visa;english

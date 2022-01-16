@@ -1,0 +1,119 @@
+#parse( "templates/IncludeTop.vm" )
+
+<div id="BackLink"><a href="/actions/Catalog.action">Return to Main Menu</a></div>
+
+<div id="Catalog">Please confirm the information below and then
+press continue...
+
+<table>
+	<tr>
+		<th align="center" colspan="2"><font size="4"><b>Order</b></font>
+		<br />
+		<font size="3"><b> $order_orderDate </b></font>
+		</th>
+	</tr>
+
+	<tr>
+		<th colspan="2">Billing Address</th>
+	</tr>
+	<tr>
+		<td>First name:</td>
+		<td>$order_billToFirstName</td>
+	</tr>
+	<tr>
+		<td>Last name:</td>
+		<td>$order_billToLastName</td>
+	</tr>
+	<tr>
+		<td>Address 1:</td>
+		<td>$order_billAddress1</td>
+	</tr>
+	<tr>
+		<td>Address 2:</td>
+		<td>$order_billAddress2</td>
+	</tr>
+	<tr>
+		<td>City:</td>
+		<td>$order_billCity</td>
+	</tr>
+	<tr>
+		<td>State:</td>
+		<td>$order_billState</td>
+	</tr>
+	<tr>
+		<td>Zip:</td>
+		<td>$order_billZip</td>
+	</tr>
+	<tr>
+		<td>Country:</td>
+		<td>$order_billCountry</td>
+	</tr>
+	<tr>
+		<th colspan="2">Shipping Address</th>
+	</tr>
+	<tr>
+		<td>First name:</td>
+		<td>$order_shipToFirstName</td>
+	</tr>
+	<tr>
+		<td>Last name:</td>
+		<td>$order_shipToLastName</td>
+	</tr>
+	<tr>
+		<td>Address 1:</td>
+		<td>$order_shipAddress1</td>
+	</tr>
+	<tr>
+		<td>Address 2:</td>
+		<td>$order_shipAddress2</td>
+	</tr>
+	<tr>
+		<td>City:</td>
+		<td>$order_shipCity</td>
+	</tr>
+	<tr>
+		<td>State:</td>
+		<td>$order_shipState</td>
+	</tr>
+	<tr>
+		<td>Zip:</td>
+		<td>$order_shipZip</td>
+	</tr>
+	<tr>
+		<td>Country:</td>
+		<td>$order_shipCountry</td>
+	</tr>
+
+</table>
+
+<form method="post" action="/order/newOrderConfirmed">
+	<input type="hidden" name="order_shipToFirstName" value="$order_shipToFirstName" />
+	<input type="hidden" name="order_shipToLastName" value="$order_shipToLastName" />
+	<input type="hidden" name="order_shipAddress1" value="$order_shipAddress1" />
+	<input type="hidden" name="order_shipAddress2" value="$order_shipAddress2" />
+	<input type="hidden" name="order_shipCity" value="$order_shipCity" />
+	<input type="hidden" name="order_shipState" value="$order_shipState" />
+	<input type="hidden" name="order_shipZip" value="$order_shipZip" />
+	<input type="hidden" name="order_shipCountry" value="$order_shipCountry" />
+	<input type="hidden" name="order_orderDate" value="$order_orderDate" />
+	<input type="hidden" name="order_cardType" value="$order_cardType" />
+	<input type="hidden" name="order_creditCard" value="$order_creditCard" /> 
+	<input type="hidden" name="order_expiryDate" value="$order_expiryDate" />
+	<input type="hidden" name="order_billToFirstName" value="$order_billToFirstName" />
+	<input type="hidden" name="order_billToLastName" value="$order_billToLastName" />
+	<input type="hidden" name="order_billAddress1" value="$order_billAddress1" />
+	<input type="hidden" name="order_billAddress2" value="$order_billAddress2" />
+	<input type="hidden" name="order_billCity" value="$order_billCity" />
+	<input type="hidden" name="order_billState" value="$order_billState" />
+	<input type="hidden" name="order_billZip" value="$order_billZip" />
+	<input type="hidden" name="order_billCountry" value="$order_billCountry" />
+	<input type="submit" value="Confirm"/>
+</form>
+</div>
+
+#parse( "templates/IncludeBottom.vm" )
+
+
+
+
+

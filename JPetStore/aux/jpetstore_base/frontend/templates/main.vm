@@ -1,0 +1,51 @@
+#parse( "templates/IncludeTop.vm" )
+<div id="Welcome">
+	<div id="WelcomeContent">
+		#if ( $authenticated )
+		<span>Welcome $account.firstName </span>!
+		#end
+		</div>
+</div>
+
+<div id="Main">
+	<div id="Sidebar">
+	<div id="SidebarContent">
+		<img src="../images/fish_icon.gif" onclick="document.forms['fish_search'].submit();" /> <br />
+		Saltwater, Freshwater<br />
+
+		<img src="../images/dogs_icon.gif" onclick="document.forms['dogs_search'].submit();" /> <br />
+		Various Breeds <br />
+
+		<img src="../images/cats_icon.gif" onclick="document.forms['cats_search'].submit();" /> <br />
+		Various Breeds, Exotic Varieties <br />
+
+		<img src="../images/reptiles_icon.gif" onclick="document.forms['reptiles_search'].submit();" /> <br />
+		Lizards, Turtles, Snakes <br />
+
+		<img src="../images/birds_icon.gif" onclick="document.forms['birds_search'].submit();" /> <br />
+		Exotic Varieties</div>
+	</div>
+
+	<div id="MainImage">
+	<div id="MainImageContent">
+	  <map name="estoremap">
+		<area alt="Birds" coords="72,2,280,250"
+			href="#" shape="RECT" onclick="document.forms['birds_search'].submit();" />
+		<area alt="Fish" coords="2,180,72,250"
+			href="#" shape="RECT" onclick="document.forms['fish_search'].submit();" />
+		<area alt="Dogs" coords="60,250,130,320"
+			href="#" shape="RECT" onclick="document.forms['dogs_search'].submit();" />
+		<area alt="Reptiles" coords="140,270,210,340"
+			href="#" shape="RECT" onclick="document.forms['reptiles_search'].submit();" />
+		<area alt="Cats" coords="225,240,295,310"
+			href="#" shape="RECT" onclick="document.forms['cats_search'].submit();" />
+		<area alt="Birds" coords="280,180,350,250"
+			href="#" shape="RECT" onclick="document.forms['birds_search'].submit();" />
+	  </map> 
+	  <img height="355" src="../images/splash.gif" align="middle"
+		usemap="#estoremap" width="350" /></div>
+	</div>
+
+	<div id="Separator">&nbsp;</div>
+</div>
+#parse( "templates/IncludeBottom.vm" )

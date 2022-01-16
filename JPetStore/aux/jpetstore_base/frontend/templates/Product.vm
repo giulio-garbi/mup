@@ -1,0 +1,46 @@
+#parse( "templates/IncludeTop.vm" )
+<div id="BackLink">
+<form style="display: inline" method="post" name="goback" action="/catalog/viewCategory">
+	<input type="hidden" name="categoryId" value="$product.categoryId"> 
+	<a onclick="document.forms['goback'].submit();"> Return to $product.categoryId </a>
+</form>
+	</div>
+
+<div id="Catalog">
+
+<h2>$product.name</h2>
+
+<table>
+	<tr>
+		<th>Item ID</th>
+		<th>Product ID</th>
+		<th>Description</th>
+		<th>List Price</th>
+		<th>&nbsp;</th>
+	</tr>
+	#foreach ($item in $product.itemList)
+		<tr>
+			<td>
+			<form style="display: inline" method="post" action="/catalog/viewItem">
+				<input type="hidden" name="itemId" value="$item.itemId"/> 
+				<input type="submit" value="$item.itemId"/> 
+			</form></td>
+			<td>${item.productId}</td>
+			<td>${item.attribute1} ${item.attribute2} ${item.attribute3}
+			${item.attribute4} ${item.attribute5} ${product.name}</td>
+			<td>$item.listPrice</td>
+			<td>
+    		<form style="display: inline" method="post" action="/cart/addItemToCart">
+				<input type="hidden" name="workingItemId" value="$item.itemId"/> 
+				<input type="submit" value="Add to Cart"/> 
+			</form></td>
+		</tr>
+	#end
+	<tr>
+		<td>
+		</td>
+	</tr>
+</table>
+
+</div>
+#parse( "templates/IncludeBottom.vm" )

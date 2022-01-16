@@ -1,0 +1,19 @@
+</div>
+
+<div id="Footer">
+
+<div id="PoweredBy">&nbsp;<a href="http://www.mybatis.org">www.mybatis.org</a>
+</div>
+
+<div id="Banner">
+#if ( $authenticated )
+	#if ( $account.bannerOption )
+		$account.bannerName
+	#end
+#end
+</div>
+
+</div>
+
+</body>
+</html>
