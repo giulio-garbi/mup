@@ -76,5 +76,6 @@
     <module>LQNExecutorModel</module>
     <module>LqnxSim</module>
     <module>MakeModelTraces</module>
+    <module>WhatifEngine</module>
   </modules>
 </project>

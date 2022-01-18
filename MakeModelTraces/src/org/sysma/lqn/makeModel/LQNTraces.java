@@ -25,15 +25,18 @@ public class LQNTraces {
 	private final HashMap<String, HashMap<String, EntryTraces>> etraces;
 	private final HashMap<String, HashMap<String, List<Long>>> dbQueries;
 	private final HashMap<String, Integer> taskMult;
+	private final HashMap<String, Integer> taskReplicas;
 	private final String mainTask;
 	
 	private LQNTraces(HashMap<String, HashMap<String, EntryTraces>> etraces,
 			HashMap<String, HashMap<String, List<Long>>> dbQueries,
 			HashMap<String, Integer> taskMult,
+			HashMap<String, Integer> taskReplicas,
 			String mainTask) {
 		this.etraces = etraces;
 		this.dbQueries = dbQueries;
 		this.taskMult = taskMult;
+		this.taskReplicas = taskReplicas;
 		this.mainTask = mainTask;
 	}
 	
@@ -78,7 +81,7 @@ public class LQNTraces {
 			activities.add(act);
 			entries.add(ent);
 		});
-		Task task = new Task(dbName, -1, entries, new TaskActivities(activities, List.of(), entries), false);
+		Task task = new Task(dbName, -1, 1, entries, new TaskActivities(activities, List.of(), entries), false);
 		Processor p = new Processor(dbName, task);
 		return p;
 	}
@@ -89,7 +92,7 @@ public class LQNTraces {
 		TaskActivities tAct = new TaskActivities(List.of(actCall), List.of(), List.of());
 		
 		Entry ent = new Entry(newEntryName);
-		Task t = new Task("Start", mult, List.of(ent), tAct, true);
+		Task t = new Task("Start", mult, 1, List.of(ent), tAct, true);
 		Processor p = new Processor("Start", t);
 		return p;
 	}
@@ -112,7 +115,7 @@ public class LQNTraces {
 						mainEntryMult[0] = taskMult.get(tkv.getKey());
 					}
 					Task t = new Task(tkv.getKey(), isMainTask?-1:taskMult.get(tkv.getKey()), 
-							entries,
+							taskReplicas.get(tkv.getKey()), entries,
 							new TaskActivities(activities, precedences, entries),false);
 					Processor p = new Processor(tkv.getKey(), t);
 					return p;
@@ -233,12 +236,14 @@ public class LQNTraces {
 	public static LQNTraces from(TaskDump... tds) {
 		HashMap<String, HashMap<String, EntryTraces>> etr = new HashMap<>();
 		HashMap<String, Integer> taskMultz = new HashMap<>();
+		HashMap<String, Integer> taskRepz = new HashMap<>();
 		String mainTask = null;
 		HashMap<String, HashMap<String, HashMap<String, ArrayList<LogLine>>>> logs = new HashMap<>();
 		HashMap<String, HashMap<String, List<Long>>> dbQueriesTimes = new HashMap<>();
 		
 		for(var td:tds) {
 			taskMultz.put(td.taskName, td.mult);
+			taskRepz.put(td.taskName, taskRepz.getOrDefault(td.taskName, 0)+1);
 			if(td.isClient)
 				mainTask = td.taskName;
 			td.queries.forEach((dbName,queries)->{
@@ -267,6 +272,6 @@ public class LQNTraces {
 				etr.get(kv1.getKey()).get(kv2.getKey()).addExecutions(kv2.getValue(), dbQueriesTimes);
 			}
 		}
-		return new LQNTraces(etr, dbQueriesTimes, taskMultz, mainTask);
+		return new LQNTraces(etr, dbQueriesTimes, taskMultz, taskRepz, mainTask);
 	}
 }
