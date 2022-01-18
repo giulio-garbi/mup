@@ -30,8 +30,8 @@ public class MainConsole {
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
-		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-		transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+		//transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		//transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 		FileWriter writer = new FileWriter(new File(filename));
 		StreamResult result = new StreamResult(writer);
 		transformer.transform(source, result);
