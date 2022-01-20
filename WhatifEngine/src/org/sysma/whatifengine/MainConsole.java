@@ -30,8 +30,8 @@ public class MainConsole {
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
-		//transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-		//transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 		FileWriter writer = new FileWriter(new File(filename));
 		StreamResult result = new StreamResult(writer);
 		transformer.transform(source, result);
@@ -60,32 +60,44 @@ public class MainConsole {
 			taskAttr.setNamedItem(tpoolAttr);
 		}
 	}
+	
+	public static void cli(Document doc, NodeList tasks, int ncli) {
+		vert(doc, tasks, "Start", ncli);
+	}
+	
+	public static void help() {
+		System.out.println("Usage:\n"+
+				"java -jar whatif.jar <inputmodel> (<whatif_decl>)* <outputmodel>\n"+
+				"where whatif_decl is a whatif declaration among the following ones:\n"+
+				"   - h <msname> <repl> : horizontal scaling of microservice msname to have repl replicas\n"+
+				"   - v <msname> <tpool> : vertical scaling of microservice msname to have a threadpool of size tpool\n"+
+				"   - c <clients> : the system has <clients> circulating the system");
+	}
 
 	public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException, TransformerException {
-		if(args.length < 2 || (args.length-2)%3 != 0) {
-			System.out.println("Usage:\n"+
-					"java -jar whatif.jar <inputmodel> (<whatif_decl>)* <outputmodel>\n"+
-					"where whatif_decl is a whatif declaration among the following ones:\n"+
-					"   - h <msname> <repl> : horizontal scaling of microservice msname to have repl replicas\n"+
-					"   - v <msname> <tpool> : vertical scaling of microservice msname to have a threadpool of size tpool");
+		if(args.length < 2) {
+			help();
 			return;
 		}
 		var inpFn = args[0];
 		var outFn = args[args.length-1];
 		var doc = parseModel(inpFn);
 		var tasks = doc.getElementsByTagName("task");
-		for(int i=1; i<args.length-1; i+=3) {
-			if(args[i].equals("h")) {
+		int i = 1;
+		int lastArg = args.length-1;
+		while(i<lastArg) {
+			if(args[i].equals("h") && i+2 < lastArg) {
 				horz(doc, tasks, args[i+1], Integer.parseInt(args[i+2]));
-			} else if(args[i].equals("v")) {
+				i+=3;
+			} else if(args[i].equals("v") && i+2 < lastArg) {
 				vert(doc, tasks, args[i+1], Integer.parseInt(args[i+2]));
+				i+=3;
+			} else if(args[i].equals("c") && i+1 < lastArg) {
+				cli(doc, tasks, Integer.parseInt(args[i+1]));
+				i+=2;
 			} else {
 				System.out.println("Invalid whatif declaration!");
-				System.out.println("Usage:\n"+
-						"java -jar whatif.jar <inputmodel> (<whatif_decl>)* <outputmodel>\n"+
-						"where whatif_decl is a whatif declaration among the following ones:\n"+
-						"   - h <msname> <repl> : horizontal scaling of microservice msname to have repl replicas\n"+
-						"   - v <msname> <tpool> : vertical scaling of microservice msname to have a threadpool of size tpool");
+				help();
 				return;
 			}
 		}
