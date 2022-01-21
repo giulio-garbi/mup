@@ -137,3 +137,9 @@ We implemented the following whatif declarations:
 The simulator (`lqnexec.jar`)  simulates a model file (either original or obtained after a whatif) to produce the statistics of the system described therein.
 
 The `java -jar lqnexec.jar <model.lqnx> <simtime_s> <rt.txt> <util.csv>` invocation reads the model in `<model.lqnx>`, simulates it for `<simtime_s>` (simulated) seconds, and produces `<rt.txt>` and `<util.csv>` as described for MakeModelTraces using the data observed in the simulation.
+
+## Paper supplementary material
+
+To make the paper easier to understand, we provide the following supplementary material:
+* [replication package](https://drive.google.com/file/d/1soqHQgtPsVrnngrVSUIpqorujRcSrIfv/view?usp=sharing), i.e., the logs used to generate the models and of the whatif cases (W1, W2, and W3) used in Section VI for each considered case study, together with the observed and simulated response times and utilizations;
+* [full model of the running example]().
