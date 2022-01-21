@@ -3,10 +3,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.sysma.lqn.makeModel.LQNTraces;
+import org.sysma.lqn.xml.vanilla.VanillaModel;
 import org.sysma.schedulerExecutor.TaskDump;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
+//import com.thoughtworks.xstream.XStream;
+//import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 public class MakeModel {
 	public static void main(String infn, String modelFn) throws IOException {
@@ -14,8 +15,9 @@ public class MakeModel {
 		var tds = TaskDump.fromJsons(log);
 		var lqt = LQNTraces.from(tds);
 		var mdl = lqt.getModel();
-		Files.writeString(Path.of(modelFn), mdl.toXml());
-		XStream xstream = new XStream(new StaxDriver());
+		var vanillaMdl = VanillaModel.from(mdl);
+		Files.writeString(Path.of(modelFn), vanillaMdl.toXml());
+		/*XStream xstream = new XStream(new StaxDriver());
 		xstream.processAnnotations(org.sysma.lqnexecutor.model.LQN.class);
 		xstream.processAnnotations(org.sysma.lqnexecutor.model.Busy.class);
 		xstream.processAnnotations(org.sysma.lqnexecutor.model.Call.class);
@@ -26,6 +28,6 @@ public class MakeModel {
 		xstream.processAnnotations(org.sysma.lqnexecutor.model.ForwardCallWithReg.class);
 		xstream.processAnnotations(org.sysma.lqnexecutor.model.ProbChoice.class);
 		xstream.processAnnotations(org.sysma.lqnexecutor.model.Database.class);
-		xstream.processAnnotations(org.sysma.lqnexecutor.model.Query.class);
+		xstream.processAnnotations(org.sysma.lqnexecutor.model.Query.class);*/
 	}
 }
