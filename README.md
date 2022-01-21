@@ -61,3 +61,16 @@ LqnxSim contains the model simulator, to obtain the expected response time and m
 
 ## Setup
 
+### Prerequisites
+
+* Java JVM (at least v. 16)
+* [Maven](https://maven.apache.org/) (at least v. 3.8.4)
+* [MongoDB](https://www.mongodb.com) (at least v. 5.0.1)
+
+### Build and installation instruction
+
+1. Clone this repository: `git clone https://github.com/giulio-garbi/mup`.
+2. Move into the `mup` directory: `cd mup`.
+3. Build the Maven module: `mvn install`.
+4. Move into the built objects directory (`bin`): `cd bin`.
+5. Install the databases (needed to run the case studies): `./setupDb.sh`
