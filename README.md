@@ -73,4 +73,48 @@ LqnxSim contains the model simulator, to obtain the expected response time and m
 2. Move into the `mup` directory: `cd mup`.
 3. Build the Maven module: `mvn install`.
 4. Move into the built objects directory (`bin`): `cd bin`.
-5. Install the databases (needed to run the case studies): `./setupDb.sh`
+5. Install the databases (needed to run the case studies): `./setupDb.sh`.
+
+## Usage
+
+The Maven module generates seven .jar archives, one for each case study or tool, together with their dependencies. 
+
+### Case studies
+
+Each case study corresponds to a runnable .jar archive. When launched, they run an execution of the case study lasting 600 seconds (after a discarded 50 second warmup phase) with the specified arguments, and then save the MSA log. AcmeAir, JPetStore, TeaStore and TMS correspond, respectively, to `aair.jar`, `jps.jar`, `ts.jar`, and `tms.jar`.
+
+The .jar archives accept the following parameters:
+* `java -jar aair.jar <log.json> <n_clients> <tp_main> <rep_main> <tp_auth> <rep_auth>`
+* `java -jar jps.jar <log.json> <n_clients> <tp_account> <rep_account> <tp_cart> <rep_cart><tp_catalog> <rep_catalog> <tp_frontend> <rep_frontend>`
+* `java -jar ts.jar <log.json> <n_clients> <tp_auth> <rep_auth> <tp_image> <rep_image><tp_persistence> <rep_persistence> <tp_recommender> <rep_recommender> <tp_web> <rep_web>`
+* `java -jar tms.jar <log.json> <n_clients> <tp_cms> <rep_cms> <tp_ems> <rep_ems><tp_qms> <rep_qms> <tp_ums> <rep_ums>`
+where
+* `<log.json>` specifies the destination of the log file;
+* `<n_clients>` is the number of clients circulating the system; 
+* `<tp_x>` is the threadpool size of microservice `x`;
+* `<rep_x>` is the number of independent replicas of microservice `x`.
+
+To improve the quality of the prediction, the user must disable Turbo Boost and Frequency Scaling on the test machine. On CentOs, the root user must run those commands:
+```
+modprobe msr
+for i in `seq 0 $NCORES`; do wrmsr -p${i} 0x1a0 0x4000850089; done
+for CPUFREQ in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do [ -f $CPUFREQ ] || continue; echo -n performance > $CPUFREQ; done
+```
+where `$NCORES` is the number of CPU virtual cores.
+
+
+### MakeModelTraces
+
+The MakeModelTraces tool (`modeltraces.jar`) analyses a MSA log file.
+
+##### Model generation
+
+The `java -jar modeltraces.jar make <log.json> <model.lqnx>` invocation reads the log in `<log.json>` to produce the LQN model saved in `<model.lqnx>`. Currently, the tool saves the model in a customized version of the LQNS XML language: future versions will export the model in a fully-compatible format.
+
+#### Response Time calculation
+
+The `java -jar modeltraces.jar rt <log.json> <rt.txt>` invocation reads the log in `<log.json>`, computes the average observed response time of the clients, and saves the result in `<rt.txt>`.
+
+#### Response Time calculation
+
+The `java -jar modeltraces.jar util <log.json> <util.csv>` invocation reads the log in `<log.json>`, computes the average observed utilization of each microservice, and saves the result in `<util.csv>`. The tool exports, for each microservice `x`, the absolute utilization: to obtain the utilization observed in the paper it must be divided by `tp_x * rep_x`.
