@@ -73,7 +73,6 @@
     <module>JPetStore</module>
     <module>Tms</module>
     <module>TeaStore</module>
-    <module>LQNExecutorModel</module>
     <module>LqnxSim</module>
     <module>MakeModelTraces</module>
     <module>WhatifEngine</module>
