@@ -58,3 +58,6 @@ MakeModelTraces contains a tool that generates the LQN model of a MSA by parsing
 WhatifEngine contains the whatif tool: given a system model as obtained by MakeModelTraces and the description of the proposed modifications (i.e., the what-if), it produces a new model that represents the new system.
 
 LqnxSim contains the model simulator, to obtain the expected response time and microservice utilization of the system described in the model file (produced either by MakeModelTraces or WhatifEngine).
+
+## Setup
+
