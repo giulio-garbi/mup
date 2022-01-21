@@ -49,7 +49,7 @@ Tms directory contains the implementation of the TMS case study, used in [this](
 * `qms` : manages the questions repository;
 * `ums` : manages the user (examinees) accounts.
 
-### MakeModelTraces, WhatifEngine, LqnxSim, and LQNExecutorModel
+### MakeModelTraces, WhatifEngine, and LqnxSim
 
 These four directories provide supporting tools that allow the performance prediction part of the μP Framework.
 
@@ -57,4 +57,4 @@ MakeModelTraces contains a tool that generates the LQN model of a MSA by parsing
 
 WhatifEngine contains the whatif tool: given a system model as obtained by MakeModelTraces and the description of the proposed modifications (i.e., the what-if), it produces a new model that represents the new system.
 
-LqnxSim contains the model simulator, to obtain the expected response time and microservice utilization of the system described in the model file (produced either by MakeModelTraces or WhatifEngine). The LQNExecutorModel directory contains the description of the model file structure.
+LqnxSim contains the model simulator, to obtain the expected response time and microservice utilization of the system described in the model file (produced either by MakeModelTraces or WhatifEngine).
