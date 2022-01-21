@@ -111,10 +111,25 @@ The MakeModelTraces tool (`modeltraces.jar`) analyses a MSA log file.
 
 The `java -jar modeltraces.jar make <log.json> <model.lqnx>` invocation reads the log in `<log.json>` to produce the LQN model saved in `<model.lqnx>`. Currently, the tool saves the model in a customized version of the LQNS XML language: future versions will export the model in a fully-compatible format.
 
-#### Response Time calculation
+##### Response Time calculation
 
 The `java -jar modeltraces.jar rt <log.json> <rt.txt>` invocation reads the log in `<log.json>`, computes the average observed response time of the clients, and saves the result in `<rt.txt>`.
 
-#### Response Time calculation
+##### Utilization calculation
 
 The `java -jar modeltraces.jar util <log.json> <util.csv>` invocation reads the log in `<log.json>`, computes the average observed utilization of each microservice, and saves the result in `<util.csv>`. The tool exports, for each microservice `x`, the absolute utilization: to obtain the utilization observed in the paper it must be divided by `tp_x * rep_x`.
+
+### Whatif Engine
+
+The Whatif Engine `whatif.jar` reads a model file and applies the required whatif alterations.
+
+The syntax is as follows: `java -jar whatif.jar <inputmodel> (<whatif_decl>)* <outputmodel>` where :
+* `<inputmodel>` is the original model;
+* `(<whatif_decl>)*` contains zero or more whatif declarations;
+* `<outputmodel>` is the resulting model after applying the `(<whatif_decl>)*`.
+We implemented the following whatif declarations:
+* `c <clients>`: the system load is scaled to `<clients>` clients (i.e., W1 in Section VI of the paper);
+* `v <msname> <tpool>`: microservice `<msname>` is vertically scaled to `<tpool>` threads (i.e., W2 in Section VI of the paper);
+* `h <msname> <tpool>`: microservice `<msname>` is horizontally scaled to `<tpool>` replicas (i.e., W3 in Section VI of the paper).
+
+### LqnxSim
