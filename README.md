@@ -37,7 +37,14 @@ JPetStore directory contains the implementation of the [JPetStore](https://ocean
 * `cart` : handles the online cart functionality, used when the customer browses the catalog and chooses to buy pets.
 
 TeaStore directory contains the implementation of the [TeaStore](https://ieeexplore.ieee.org/abstract/document/8526888) case study. It contains five microservices: 
-* `web`
-`image`, `auth`, , `persistence`, and `cart`.
+* `web` : handles the user interface with the customer, i.e., the web pages;
+* `auth` : manages the user (customer) accounts and cart;
+* `image` : resizes the product images to the most appropriate resolution according to the device used to browse the shop;
+* `persistence` : interacts with the database to retrieve information needed by other microservices;
+* `recommender` : analyses the user profile and history to suggest products to buy.
 
-#### TMS
+Tms directory contains the implementation of the TMS case study, used in [this](https://www.mdpi.com/2076-3417/10/21/7800) paper. It contains four microservices: 
+* `cms` : handles the user interface and provides access to the internal functions;
+* `ems` : handles the examination templates;
+* `qms` : manages the questions repository;
+* `ums` : manages the user (examinees) accounts.
