@@ -71,7 +71,9 @@ public class LqnModel {
 				var s = devstd/Math.sqrt(n) * 1.96;
 				var up = mean+s;
 				var down = mean-s;
-				pw.println(tname+"; "+mean+"; "+down+"; "+up);
+				//pw.println(tname+"; "+mean+"; "+down+"; "+up);
+				if(tname.equals("Client-main"))
+					pw.println(mean+"");
 			}
 		}
 		pw.close();
@@ -85,7 +87,8 @@ public class LqnModel {
 					tlist.stream().map(t->t.cpuRuntime.avgCpu(stoppedAt)).collect(Collectors.summingDouble(x->x)));
 		}
 		cpus.keySet().stream().sorted().forEach(t->{
-			pw.println(t+"; "+cpus.get(t));
+			if(!t.equals("Client") && !t.equals("Net"))
+				pw.println(t+"; "+cpus.get(t));
 		});
 		pw.close();
 	}
