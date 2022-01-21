@@ -121,7 +121,7 @@ The `java -jar modeltraces.jar util <log.json> <util.csv>` invocation reads the 
 
 ### Whatif Engine
 
-The Whatif Engine `whatif.jar` reads a model file and applies the required whatif alterations.
+The Whatif Engine (`whatif.jar`) reads a model file and applies the required whatif alterations.
 
 The syntax is as follows: `java -jar whatif.jar <inputmodel> (<whatif_decl>)* <outputmodel>` where :
 * `<inputmodel>` is the original model;
@@ -132,4 +132,8 @@ We implemented the following whatif declarations:
 * `v <msname> <tpool>`: microservice `<msname>` is vertically scaled to `<tpool>` threads (i.e., W2 in Section VI of the paper);
 * `h <msname> <tpool>`: microservice `<msname>` is horizontally scaled to `<tpool>` replicas (i.e., W3 in Section VI of the paper).
 
-### LqnxSim
+### The simulator
+
+The simulator (`lqnexec.jar`)  simulates a model file (either original or obtained after a whatif) to produce the statistics of the system described therein.
+
+The `java -jar lqnexec.jar <model.lqnx> <simtime_s> <rt.txt> <util.csv>` invocation reads the model in `<model.lqnx>`, simulates it for `<simtime_s>` (simulated) seconds, and produces `<rt.txt>` and `<util.csv>` as described for MakeModelTraces using the data observed in the simulation.
