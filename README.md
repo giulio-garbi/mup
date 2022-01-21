@@ -142,4 +142,6 @@ The `java -jar lqnexec.jar <model.lqnx> <simtime_s> <rt.txt> <util.csv>` invocat
 
 To make the paper easier to understand, we provide the following supplementary material:
 * [replication package](https://drive.google.com/file/d/1soqHQgtPsVrnngrVSUIpqorujRcSrIfv/view?usp=sharing), i.e., the logs used to generate the models and of the whatif cases (W1, W2, and W3) used in Section VI for each considered case study, together with the observed and simulated response times and utilizations;
-* [full model of the running example]().
+* [full model of the running example](https://drive.google.com/file/d/1NUCJOz8CdwdZXSvrl9wilWA1tkv9yNhn/view?usp=sharing), where we applied the following modifications to aid the reader:
+    - the service time of Net entries is written directly in their parallelogram (i.e., we omitted their only activity);
+    - arrows leading to Net entries are colored differently to ease the differentiation (one color for each communication).
