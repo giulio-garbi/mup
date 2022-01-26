@@ -20,7 +20,7 @@ This directory contains the source code of the framework. Developers can downloa
     <artifactId>MicroservicesFramework</artifactId>
 </dependency>
 ```
-We remark that the actual API of this implementation slightly differs from the one outlined in the paper, the latter being a simplified version for presentation reasons.
+For presentation purposes only (i.e., renaming and lightening of the implementation details), the API of this implementation slightly differs from the one outlined in the paper.
 
 ### AcmeAir, JPetStore, TeaStore and Tms
 
