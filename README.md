@@ -20,7 +20,6 @@ This directory contains the source code of the framework. Developers can downloa
     <artifactId>MicroservicesFramework</artifactId>
 </dependency>
 ```
-For presentation purposes only (i.e., renaming and lightening of the implementation details), the API of this implementation slightly differs from the one outlined in the paper.
 
 ### AcmeAir, JPetStore, TeaStore and Tms
 
@@ -145,3 +144,5 @@ To make the paper easier to understand, we provide the following supplementary m
 * [full model of the running example](https://drive.google.com/file/d/1NUCJOz8CdwdZXSvrl9wilWA1tkv9yNhn/view?usp=sharing), where we applied the following modifications to aid the reader:
     - the service time of Net entries is written directly in their parallelogram (i.e., we omitted their only activity);
     - arrows leading to Net entries are colored differently to ease the differentiation (one color for each communication).
+
+For presentation purposes only (i.e., renaming and lightening of the implementation details), the API of this implementation slightly differs from the one outlined in the paper.
