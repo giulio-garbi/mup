@@ -10,16 +10,12 @@ import org.sysma.lqn.xml.Model;
 import org.sysma.lqn.xml.Task;
 import org.sysma.lqn.xml.TaskActivities;
 import org.sysma.lqnexecutor.model.TimeDistribution;
-import org.sysma.lqnexecutor.model.TimeDistribution.PositiveNormal;
 import org.sysma.lqn.xml.Activity;
 import org.sysma.lqn.xml.Entry;
 import org.sysma.lqn.xml.Precedence;
 import org.sysma.lqn.xml.Processor;
 import org.sysma.schedulerExecutor.LogLine;
 import org.sysma.schedulerExecutor.TaskDump;
-
-import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 public class LQNTraces {
 	private final HashMap<String, HashMap<String, EntryTraces>> etraces;
