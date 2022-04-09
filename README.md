@@ -99,7 +99,7 @@ modprobe msr
 for i in `seq 0 $NCORES`; do wrmsr -p${i} 0x1a0 0x4000850089; done
 for CPUFREQ in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do [ -f $CPUFREQ ] || continue; echo -n performance > $CPUFREQ; done
 ```
-where `$NCORES` is the number of CPU virtual cores.
+where `$NCORES` is the number of CPU virtual cores. To do so, you will need to install the `msr-tools` package on Ubuntu.
 
 
 ### MakeModelTraces
