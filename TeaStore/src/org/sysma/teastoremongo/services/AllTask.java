@@ -42,7 +42,7 @@ public class AllTask extends TaskDefinition {
 		comm.respond(200, valid.toString().getBytes());
 	}
 	*/
-	@EntryDef("/authlogin/")
+	//@EntryDef("/authlogin/")
 	public String AuthLogin(String name, String password, MongoClient client) throws IOException, JsonSyntaxException, UnsupportedOperationException, InterruptedException, ExecutionException, SQLException {
 		
 		var gson = new Gson();
@@ -647,7 +647,7 @@ public static String pimgPath = Util.baseDir+"/images/";
 	}
 
 	*/
-	//@EntryDef("/loginAction/")
+	@EntryDef("/loginAction/")
 	public void LoginAction(Communication comm) throws IOException, UnsupportedOperationException, InterruptedException, ExecutionException, JsonSyntaxException, SQLException {
 		var params = comm.getPostParameters();
 		String cookie = params.get("cookie");
