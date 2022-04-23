@@ -12,12 +12,9 @@ public class ClientLoginTask extends MainTaskDefinition<String> {
 	@Override
 	public void main(Communication comm, String user) throws InterruptedException {
 		String cookie = "{}";
-		
-		Thread.sleep(1500);
 		try {
-			Util.getAndClose(comm.asyncCallRegistry("all", "Login", (x)->{}, "cookie", cookie));
-			Thread.sleep(1500);
-			
+			Thread.sleep(1000);
+			Util.getAndClose(comm.asyncCallRegistry("all", "AuthLogin", (x)->{}, "cookie", cookie));
 		} catch (IOException | ExecutionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
