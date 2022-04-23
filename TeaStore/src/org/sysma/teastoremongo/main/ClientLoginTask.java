@@ -14,7 +14,8 @@ public class ClientLoginTask extends MainTaskDefinition<String> {
 		String cookie = "{}";
 		try {
 			Thread.sleep(60);
-			Util.getAndClose(comm.asyncCallRegistry("all", "AuthLogin", (x)->{}, "cookie", cookie));
+			cookie = Util.getAndClose(comm.asyncCallRegistry("all", "LoginAction", (x)->{}, 
+					"cookie", cookie, "username", user, "password", user));
 		} catch (IOException | ExecutionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
