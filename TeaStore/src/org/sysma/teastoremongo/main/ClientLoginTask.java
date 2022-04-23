@@ -13,7 +13,7 @@ public class ClientLoginTask extends MainTaskDefinition<String> {
 	public void main(Communication comm, String user) throws InterruptedException {
 		String cookie = "{}";
 		try {
-			Thread.sleep(60);
+			Thread.sleep(1000);
 			cookie = Util.getAndClose(comm.asyncCallRegistry("all", "LoginAction", (x)->{}, 
 					"cookie", cookie, "username", user, "password", user));
 		} catch (IOException | ExecutionException e) {
