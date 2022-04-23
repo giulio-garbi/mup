@@ -23,10 +23,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.mongodb.client.MongoClient;
 
 @TaskDef(name="all")
 public class AllTask extends TaskDefinition {
-	@EntryDef("/isLoggedIn/")
+	/*@EntryDef("/isLoggedIn/")
 	public void IsLoggedIn(Communication comm) throws IOException {
 		var params = comm.getPostParameters();
 		String cookie = params.get("cookie");
@@ -40,16 +41,13 @@ public class AllTask extends TaskDefinition {
 		
 		comm.respond(200, valid.toString().getBytes());
 	}
-	
+	*/
 	@EntryDef("/authlogin/")
-	public void AuthLogin(Communication comm) throws IOException, JsonSyntaxException, UnsupportedOperationException, InterruptedException, ExecutionException {
-		var params = comm.getPostParameters();
-		String name = params.get("name");
-		String password = params.get("password");
+	public String AuthLogin(String name, String password, MongoClient client) throws IOException, JsonSyntaxException, UnsupportedOperationException, InterruptedException, ExecutionException, SQLException {
 		
 		var gson = new Gson();
 		
-		var rsp = Util.getAndClose(comm.asyncCallRegistry("all", "UsersByName", z->{}, "name",name));
+		var rsp = UsersByName(name, client);
 		
 		var user = gson.fromJson(
 				rsp,
@@ -63,17 +61,17 @@ public class AllTask extends TaskDefinition {
 			ans.add("cart", new JsonArray());
 		}
 		
-		comm.respond(200, gson.toJson(ans).getBytes());
+		return gson.toJson(ans);
 	}
-
-	@EntryDef("/logout/")
-	public void Logout(Communication comm) throws IOException, JsonSyntaxException, UnsupportedOperationException, InterruptedException, ExecutionException {
+	
+	//@EntryDef("/logout/")
+	public String Logout(String cookie) throws IOException, JsonSyntaxException, UnsupportedOperationException, InterruptedException, ExecutionException {
 		//var params = comm.getPostParameters();
 		//String cookie = params.get("cookie");
 		var ans = "{}";
-		comm.respond(200, ans.getBytes());
+		return ans;
 	}
-	
+	/*
 	@EntryDef("/addProductToCart/")
 	public void AddProductToCart(Communication comm) throws IOException, JsonSyntaxException, UnsupportedOperationException, InterruptedException, ExecutionException {
 		var params = comm.getPostParameters();
@@ -155,13 +153,10 @@ public class AllTask extends TaskDefinition {
 		comm.respond(200, new Gson().toJson(ans[0]).getBytes(), 
 				"Content-Type", "application/json");
 	}
-	
-	@EntryDef("/usersByName/")
-	public void UsersByName(Communication comm) throws IOException, SQLException, InterruptedException, ExecutionException {
-		var param = comm.getPostParameters();
-		var name = (param.get("name"));
+	*/
+	//@EntryDef("/usersByName/")
+	public String UsersByName(String name, MongoClient client) throws IOException, SQLException, InterruptedException, ExecutionException {
 		JsonObject[] ans = {null};
-		var client = comm.getMongo();
 		try(var cur = client.getDatabase("teastore").getCollection("user")
 				.find(new Document("username",name)).cursor()){
 			if(cur.hasNext()) {
@@ -176,10 +171,9 @@ public class AllTask extends TaskDefinition {
 				ans[0] = new JsonObject();
 			}
 		}
-		comm.respond(200, new Gson().toJson(ans[0]).getBytes(), 
-				"Content-Type", "application/json");
+		return new Gson().toJson(ans[0]);
 	}
-	
+	/*
 	@EntryDef("/productsCount/")
 	public void ProductsCount(Communication comm) throws IOException, SQLException, InterruptedException, ExecutionException {
 		var param = comm.getPostParameters();
@@ -652,9 +646,9 @@ public static String pimgPath = Util.baseDir+"/images/";
 		comm.respond(200+k, out.getBytes());
 	}
 
-	
-	@EntryDef("/loginAction/")
-	public void LoginAction(Communication comm) throws IOException, UnsupportedOperationException, InterruptedException, ExecutionException {
+	*/
+	//@EntryDef("/loginAction/")
+	public void LoginAction(Communication comm) throws IOException, UnsupportedOperationException, InterruptedException, ExecutionException, JsonSyntaxException, SQLException {
 		var params = comm.getPostParameters();
 		String cookie = params.get("cookie");
 		String logout = params.get("logout");
@@ -663,18 +657,16 @@ public static String pimgPath = Util.baseDir+"/images/";
 		
 		
 		if(logout != null) {
-			String ansCookie = Util.getAndClose(comm.asyncCallRegistry("all", "Logout", x->{}, 
-					"cookie",cookie));
+			String ansCookie = Logout(cookie);
 			int k = 0 * Util.slowdown(200_000);
 			comm.respond(200+k, ansCookie.getBytes());
 		} else {
-			String ansCookie = Util.getAndClose(comm.asyncCallRegistry("all", "AuthLogin", x->{}, 
-					"name",username, "password", password));
+			String ansCookie = AuthLogin(username, password, comm.getMongo());
 			int k = 0 * Util.slowdown(200_000);
 			comm.respond(200+k, ansCookie.getBytes());
 		}
 	}
-
+	/*
 	@EntryDef("/cartActionAdd/")
 	public void CartActionAdd(Communication comm) throws IOException, UnsupportedOperationException, InterruptedException, ExecutionException {
 		var params = comm.getPostParameters();
@@ -686,5 +678,5 @@ public static String pimgPath = Util.baseDir+"/images/";
 		String ansCookie = Util.getAndClose(comm.asyncCallRegistry("all", "AddProductToCart", x->{}, 
 				"cookie",cookie, "productid", productid));
 		comm.respond(200+k, ansCookie.getBytes());
-	}
+	}*/
 }
