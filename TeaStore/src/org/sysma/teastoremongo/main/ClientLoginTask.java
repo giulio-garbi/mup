@@ -15,7 +15,7 @@ public class ClientLoginTask extends MainTaskDefinition<String> {
 		
 		Thread.sleep(1500);
 		try {
-			Util.getAndClose(comm.asyncCallRegistry("web", "Login", (x)->{}, "cookie", cookie));
+			Util.getAndClose(comm.asyncCallRegistry("all", "Login", (x)->{}, "cookie", cookie));
 			Thread.sleep(1500);
 			
 		} catch (IOException | ExecutionException e) {
