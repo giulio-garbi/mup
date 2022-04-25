@@ -36,19 +36,14 @@ public class MainConsole {
 			CreateDb.main();
 			return;
 		}
-		if(args.length == 4 && args[0].equals("all")) {
-			MainAll.main(args[1], Integer.parseInt(args[2]), Integer.parseInt(args[3]));
-			return;
-		}
 		if(args.length != 12) {
 			System.out.println("Usage:\njava -jar ts.jar <log.json> <n_clients> "+
 				"<tp_auth> <rep_auth> " + 
-				"<tp_image> <rep_image>"+
+				"<tp_image> <rep_image> "+
 				"<tp_persistence> <rep_persistence> " + 
 				"<tp_recommender> <rep_recommender> " + 
 				"<tp_web> <rep_web>\n" +
-				"java -jar ts.jar makedb\n" +
-				"java -jar ts.jar all <log.json> <n_clients> <tp>");
+				"java -jar ts.jar makedb");
 			return;
 		}
 		String outfn = args[0];
