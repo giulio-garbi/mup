@@ -27,7 +27,6 @@ import com.mongodb.client.model.Filters;
 
 @TaskDef(name="main",
 		filePath="acmeair_base/"
-		//filePath="/Users/giulio/SynologyDrive/acmeair_base/"
 		)
 public class MainTask extends TaskDefinition {
 	

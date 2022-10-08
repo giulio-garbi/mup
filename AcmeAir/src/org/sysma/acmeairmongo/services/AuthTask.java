@@ -17,7 +17,6 @@ import com.mongodb.client.MongoDatabase;
 @TaskDef(name="auth")
 public class AuthTask extends TaskDefinition {
 	
-	//public static String dbPath = "/Users/giulio/SynologyDrive/acmeair_base/acmeair.db";
 	//public static String dbPath = "acmeair_base/acmeair.db";
 	
 	private static int slowdown() {

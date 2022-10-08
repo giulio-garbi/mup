@@ -10,7 +10,6 @@ import java.util.concurrent.ExecutionException;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 
 public class Util {
-	//public static final String baseDir = "/Users/giulio/SynologyDrive/teastore/teastore_data";
 	public static final String baseDir = "teastore_data";
 	
 	
