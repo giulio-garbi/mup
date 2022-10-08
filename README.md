@@ -108,7 +108,7 @@ The MakeModelTraces tool (`modeltraces.jar`) analyses a MSA log file.
 
 ##### Model generation
 
-The `java -jar modeltraces.jar make <log.json> <model.lqnx>` invocation reads the log in `<log.json>` to produce the LQN model saved in `<model.lqnx>`. Currently, the tool saves the model in a customized version of the LQNS XML language: future versions will export the model in a fully-compatible format.
+The `java -jar modeltraces.jar make <src-dir> <log.json> <src-dir> <model.lqnx>` invocation reads the log in `<log.json>` and the source code directory `<src-dir>` (i.e., the `src` directory of Eclipse projects) to produce the LQN model saved in `<model.lqnx>`. Currently, the tool saves the model in a customized version of the LQNS XML language: future versions will export the model in a fully-compatible format.
 
 ##### Response Time calculation
 
