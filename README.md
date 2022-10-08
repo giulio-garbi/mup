@@ -137,12 +137,12 @@ The simulator (`lqnexec.jar`)  simulates a model file (either original or obtain
 
 The `java -jar lqnexec.jar <model.lqnx> <simtime_s> <rt.txt> <util.csv>` invocation reads the model in `<model.lqnx>`, simulates it for `<simtime_s>` (simulated) seconds, and produces `<rt.txt>` and `<util.csv>` as described for MakeModelTraces using the data observed in the simulation.
 
+### Model statistics
+
+The `java -jar lqnexec.jar <model.lqnx> stats` invocation reads the model in `<model.lqnx>` and produces the model statistics, i.e., how many tasks, entries, activities, nodes, OR-nodes, arcs and paths are therein.
+
 ## Paper supplementary material
 
-To make the paper easier to understand, we provide the following supplementary material:
-* [replication package](https://drive.google.com/file/d/1soqHQgtPsVrnngrVSUIpqorujRcSrIfv/view?usp=sharing), i.e., the logs used to generate the models and of the whatif cases (W1, W2, and W3) used in Section VI for each considered case study, together with the observed and simulated response times and utilizations;
-* [full model of the running example](https://drive.google.com/file/d/1NUCJOz8CdwdZXSvrl9wilWA1tkv9yNhn/view?usp=sharing), where we applied the following modifications to aid the reader:
-    - the service time of Net entries is written directly in their parallelogram (i.e., we omitted their only activity);
-    - arrows leading to Net entries are colored differently to ease the differentiation (one color for each communication).
+To make the paper easier to understand, we provide a [replication package](https://drive.google.com/file/d/1soqHQgtPsVrnngrVSUIpqorujRcSrIfv/view?usp=sharing), i.e., the logs used to generate the models and of the whatif cases (W1, W2, and W3) used in Section 4 for each considered case study, together with the observed and simulated response times and utilizations;
 
 For presentation purposes only (i.e., renaming and lightening of the implementation details), the API of this implementation slightly differs from the one outlined in the paper.
