@@ -74,7 +74,6 @@
     <module>Tms</module>
     <module>TeaStore</module>
     <module>LqnxSim</module>
-    <module>ModelStats</module>
     <module>MakeModelTraces</module>
     <module>WhatifEngine</module>
   </modules>

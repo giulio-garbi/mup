@@ -15,16 +15,17 @@ public class MainFromXmlConsole {
 
 	public static void main(String[] args) throws IOException {	
 		var timeIn = Instant.now();
-		if(args.length != 4) {
+		boolean dostats = false;
+		if(args.length == 2 && args[1].equals("stats"))
+			dostats = true;
+		if(!dostats && args.length != 4) {
 			System.out.println("Usage:\njava -jar lqnexec.jar <model.lqnx> <simtime_s> <rt.csv> <util.csv>");
+			System.out.println("java -jar lqnexec.jar <model.lqnx> stats");
 			return;
 		}
 		String xmlFname = args[0];
-		Duration stopAt = Duration.ofSeconds(Integer.parseInt(args[1]));
-		String outFname = args[2];
-		String utilFname = args[3];
-		
 		String xml = Files.readString(Paths.get(xmlFname));
+		
 
 		XStream xstream = new XStream(new StaxDriver());
 		xstream.processAnnotations(org.sysma.lqnxsim.model.Activity.class);
@@ -47,6 +48,13 @@ public class MainFromXmlConsole {
 		xstream.processAnnotations(org.sysma.lqnxsim.model.TaskActivities.class);
 		
 		org.sysma.lqnxsim.model.LqnModel lqnModel = (org.sysma.lqnxsim.model.LqnModel) xstream.fromXML(xml);
+		if(dostats) {
+			mstats(lqnModel);
+			return;
+		}
+		Duration stopAt = Duration.ofSeconds(Integer.parseInt(args[1]));
+		String outFname = args[2];
+		String utilFname = args[3];
 		var mdl = new LqnModel(lqnModel);
 		mdl.startAllClients();
 		Duration time = Duration.ZERO;
@@ -69,5 +77,16 @@ public class MainFromXmlConsole {
 		var timeOut = Instant.now();
 		
 		System.out.println(xmlFname+" simulated in "+Duration.between(timeIn, timeOut));
+	}
+	
+	private static void mstats(org.sysma.lqnxsim.model.LqnModel lqnModel) {
+		ModelStats ms = new ModelStats(lqnModel);
+		System.out.println("Tasks: "+ms.tasks);
+		System.out.println("Entries: "+ms.entries);
+		System.out.println("Activities: "+ms.activities);
+		System.out.println("Nodes: "+ms.nodes);
+		System.out.println("   of which OR nodes: "+ms.or_nodes);
+		System.out.println("Arcs: "+ms.arcs);
+		System.out.println("Paths: "+ms.paths);
 	}
 }

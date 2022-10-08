@@ -1,14 +1,6 @@
-package org.sysma.modelstats;
+package org.sysma.lqnxsim.main;
 
-import org.sysma.lqnxsim.model.Activity;
-import org.sysma.lqnxsim.model.Entry;
-import org.sysma.lqnxsim.model.LqnModel;
-import org.sysma.lqnxsim.model.Precedence;
-import org.sysma.lqnxsim.model.Processor;
-import org.sysma.lqnxsim.model.ReplyEntry;
-import org.sysma.lqnxsim.model.SyncCall;
-import org.sysma.lqnxsim.model.Task;
-import org.sysma.lqnxsim.model.TaskActivities;
+import org.sysma.lqnxsim.model.*;
 
 public class ModelStats {
 	public int tasks=2, entries, activities, nodes, or_nodes, arcs, paths;
