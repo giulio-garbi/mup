@@ -1,4 +1,4 @@
-# μP: A Development Framework for Accurate Performance Predictions in Microservices Systems
+# μP: A Development Framework for Performance Predictable Microservices
 
 This repository contains the source code of a μP Framework implementation in Java together with four case studies taken from the microservices literature. The repository is organized as a [Maven](https://maven.apache.org/) with submodules.
 
