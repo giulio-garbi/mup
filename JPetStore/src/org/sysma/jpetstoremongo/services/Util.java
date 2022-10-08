@@ -8,7 +8,6 @@ import java.io.InputStream;
 import org.apache.velocity.app.VelocityEngine;
 
 public class Util {
-	//public static final String basePath = "/Users/giulio/SynologyDrive/jpetstore/jpetstore_base/";
 	public static final String basePath = "jpetstore_base/";
 	//public static final String dbPath = basePath+"db.sqlite";
 	
