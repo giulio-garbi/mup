@@ -1,5 +1,6 @@
 package org.sysma.lqn.xml;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -12,6 +13,10 @@ public class Entry {
 		this.replyActivities = replyActivities;
 	}
 	
+	public Entry(String name2, ArrayList<String> replyActivities2) {
+		this(name2, replyActivities2.stream().map(x->new Activity(x,0,0,0,null,false)).collect(Collectors.toList()).toArray(new Activity[0]));
+	}
+
 	public String toXml() {
 		return "<entry name=\""+name+"\"/>";
 	}

@@ -1,7 +1,0 @@
-org/sysma/acmeairmongo/services/MainTask.class
-org/sysma/acmeairmongo/services/AuthTask.class
-org/sysma/acmeairmongo/auth/Util.class
-org/sysma/acmeairmongo/services/ClientTask.class
-org/sysma/acmeairmongo/main/MainConsole.class
-org/sysma/acmeairmongo/auth/LRUCache$Node.class
-org/sysma/acmeairmongo/auth/LRUCache.class

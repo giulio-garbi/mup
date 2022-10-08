@@ -229,7 +229,7 @@ public class LQNTraces {
 		return t;
 	}
 
-	public static LQNTraces from(TaskDump... tds) {
+	public static LQNTraces from(Model staticModel, TaskDump... tds) {
 		HashMap<String, HashMap<String, EntryTraces>> etr = new HashMap<>();
 		HashMap<String, Integer> taskMultz = new HashMap<>();
 		HashMap<String, Integer> taskRepz = new HashMap<>();

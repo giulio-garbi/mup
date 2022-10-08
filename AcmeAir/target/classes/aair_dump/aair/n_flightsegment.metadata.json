@@ -1,1 +1,0 @@
-{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"aair.n_flightsegment"}],"uuid":"d186e39c91d7443ebbe28cd98615bb07","collectionName":"n_flightsegment"}
