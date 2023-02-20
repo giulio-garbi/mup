@@ -82,7 +82,7 @@ public class MakeResponseTimes {
 			});
 		}
 		
-		var pw = new PrintWriter((outfn));
+		PrintWriter pw = outfn.equals("-")? new PrintWriter(System.out) : new PrintWriter((outfn));
 		
 		double stmean = 0;
 		int cnt = 0;

@@ -71,6 +71,7 @@
     <module>MicroservicesFramework</module>
     <module>AcmeAir</module>
     <module>JPetStore</module>
+    <module>FaceDetect</module>
     <module>Tms</module>
     <module>TeaStore</module>
     <module>LqnxSim</module>

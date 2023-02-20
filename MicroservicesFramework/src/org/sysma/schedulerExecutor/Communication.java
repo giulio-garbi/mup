@@ -27,6 +27,8 @@ import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
+import org.apache.hc.client5.http.entity.mime.HttpMultipartMode;
+import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
@@ -38,6 +40,7 @@ import org.apache.hc.core5.http.HttpResponse;
 import org.apache.hc.core5.http.NameValuePair;
 import org.apache.hc.core5.http.ProtocolException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
+import org.apache.hc.core5.http.io.entity.FileEntity;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
 import org.sysma.schedulerExecutor.Queries.ReadQuery;
@@ -132,6 +135,16 @@ public class Communication {
 			p.put(nvp.getName(), nvp.getValue());
 		return p;
 	}
+	
+	public Map<String, String> getPostParametersFiles() throws Exception{
+		var data = this.getRequestBody().readAllBytes();
+		MultiPartStringParser mpsp = new MultiPartStringParser(new String(data), data);
+		HashMap<String, String> p = new HashMap<>();
+		for(var nvp:mpsp.getParameters().entrySet())
+			p.put(nvp.getKey(), nvp.getValue());
+		return p;
+	}
+	
 	
 	/*public void respond(int rCode, byte[] response, Map<String, String> headers) throws IOException{
 		for(var kv:headers.entrySet()) {
@@ -532,6 +545,83 @@ public class Communication {
 			Map<String,String> params) {
 		var par = params.entrySet().stream().flatMap(e->Stream.of(e.getKey(), e.getValue())).toArray(String[]::new);
 		return this.asyncCallRegistry(calledTaskName, calledEntryName, customizeRequest, par);
+	}
+	
+	public CompletableFuture<CloseableHttpResponse> asyncCallRegistryWithFile(String calledTaskName, 
+			String calledEntryName, 
+			Consumer<HttpPost> customizeRequest,
+			String fileArg,
+			String fileName, byte[] fileContent,
+			String... params) {
+		var postParameters = new ArrayList<NameValuePair>();
+		for(int i=0; i<params.length; i+=2)
+			postParameters.add(new BasicNameValuePair(params[i], params[i+1]));
+		
+		entry.log.get().add(new LogLine.CallWithReg(entry.taskName, entry.entryName, calledTaskName, calledEntryName, client, System.currentTimeMillis()));
+		CompletableFuture<CloseableHttpResponse> future = new CompletableFuture<CloseableHttpResponse>() {
+			@Override
+			public CloseableHttpResponse get() throws InterruptedException, ExecutionException {
+				//Thread.sleep(1);
+				entry.log.get().add(new LogLine.WaitForWithReg(entry.taskName, entry.entryName, calledTaskName, calledEntryName, client, System.currentTimeMillis()));
+				var ans = super.get();
+				entry.log.get().add(new LogLine.Resume(entry.taskName, entry.entryName, client, System.currentTimeMillis()));
+				Thread.sleep(1);
+				return ans;
+			}
+		};
+		new Thread(new Runnable(){
+			public void run() {
+				URI msURI = null;
+				HttpPost httppostReg = new HttpPost(TaskDirectory.getRegistry().resolve("/query"));
+				httppostReg.setEntity(new UrlEncodedFormEntity(
+						List.of(new BasicNameValuePair("ms", calledTaskName), 
+								new BasicNameValuePair("ep", calledEntryName))));
+				NetworkTimeMonitor commTimeReg = new NetworkTimeMonitor();
+				try(var httpresponseReg = commTimeReg.execute(hclient, httppostReg)){
+					String ans = inputStreamToString(httpresponseReg.getEntity().getContent());
+					msURI = URI.create(ans);
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				
+				
+				HttpPost httppost = new HttpPost(msURI);
+				MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+				builder.setMode(HttpMultipartMode.LEGACY);
+				builder.addBinaryBody(fileArg, fileContent, ContentType.DEFAULT_BINARY, fileName);
+				for(var nvp: postParameters) {
+					builder.addTextBody(nvp.getName(), nvp.getValue(), ContentType.DEFAULT_BINARY);
+				}
+				httppost.setEntity(builder.build());
+				
+				customizeRequest.accept(httppost);
+				try {
+					NetworkTimeMonitor commTime = new NetworkTimeMonitor();
+					var httpresponse = commTime.execute(hclient, httppost);
+					/*System.out.println("-- "+httpresponse.getCode());
+					for(var ck:httpresponse.getHeaders()) {
+						System.out.println(ck.getName() + " => " + ck.getValue());
+					};*/
+					entry.log.get().add(new LogLine.ForwardReg(entry.taskName, entry.entryName, calledTaskName, calledEntryName, client, 
+							commTimeReg.receivedbackTime, commTimeReg.sentbackTime, commTimeReg.sendToDestTime, commTimeReg.receivedAtDestTime,
+							commTime.sendToDestTime));
+					entry.log.get().add(new LogLine.Replied(entry.taskName, entry.entryName, calledTaskName, calledEntryName, 
+							client, commTime.receivedbackTime, commTime.sentbackTime, commTime.sendToDestTime, commTime.receivedAtDestTime));
+					future.complete(httpresponse);
+				} catch (CancellationException | IOException e) {
+					try {
+						System.out.println(httppost.getUri());
+					} catch (URISyntaxException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					future.completeExceptionally(e);
+				} 
+			}
+			
+		}).start();
+		return future;
 	}
 	
 	public CompletableFuture<CloseableHttpResponse> asyncCallRegistry(String calledTaskName, 

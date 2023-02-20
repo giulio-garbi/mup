@@ -68,7 +68,7 @@ public class MakeUtilization {
 			outUData.put(ent, U);
 		}
 		
-		var pw = new PrintWriter((outfn));
+		PrintWriter pw = outfn.equals("-")? new PrintWriter(System.out) : new PrintWriter((outfn));
 		pw.println("Task; Utilization");
 		for(var ent:outUData.keySet().stream().sorted().collect(Collectors.toList())) {
 			if(ent.equals("Client"))

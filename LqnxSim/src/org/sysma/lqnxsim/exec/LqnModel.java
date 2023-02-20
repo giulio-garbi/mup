@@ -58,7 +58,7 @@ public class LqnModel {
 	}
 	
 	public void debugRTs(String outFname) throws FileNotFoundException {
-		PrintWriter pw = new PrintWriter(outFname);
+		PrintWriter pw = outFname.equals("-")? new PrintWriter(System.out) : new PrintWriter((outFname));
 		for(var tlist:entry2task.values()) {
 			var t0 = tlist.get(0);
 			for(var tname:t0.responseTimes.keySet()) {
@@ -76,11 +76,12 @@ public class LqnModel {
 					pw.println(mean+"");
 			}
 		}
+		pw.flush();
 		pw.close();
 	}
 	
 	public void debugUtils(String outFname, Instant stoppedAt) throws FileNotFoundException {
-		PrintWriter pw = new PrintWriter(outFname);
+		PrintWriter pw = outFname.equals("-")? new PrintWriter(System.out) : new PrintWriter((outFname));
 		HashMap<String, Double> cpus = new HashMap<>();
 		for(var tlist:entry2task.values()) {
 			cpus.put(tlist.get(0).name,
@@ -90,6 +91,7 @@ public class LqnModel {
 			if(!t.equals("Client") && !t.equals("Net"))
 				pw.println(t+"; "+cpus.get(t));
 		});
+		pw.flush();
 		pw.close();
 	}
 	

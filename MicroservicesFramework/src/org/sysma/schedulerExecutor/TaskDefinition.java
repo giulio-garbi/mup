@@ -60,7 +60,7 @@ public abstract class TaskDefinition {
 		URI baseUri = URI.create("http://localhost:"+port);
 		registerExternal(tdef, baseUri);
 		try {
-			return tdef.getConstructor().newInstance().instantiate(port, slowdownLoop, mult);
+			return tdef.getConstructor().newInstance().instantiate(port, null, slowdownLoop, mult);
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -84,11 +84,16 @@ public abstract class TaskDefinition {
 	}
 	
 	public static HttpTask instantiate(Class<? extends TaskDefinition> tdef, int port, int mult) {
-		return instantiate(tdef, port, 0, mult);
+		return instantiate(tdef, null, port, 0, mult);
 	}
-	public static HttpTask instantiate(Class<? extends TaskDefinition> tdef, int port, int slowdownLoop, int mult) {
+
+	public static HttpTask instantiate(Class<? extends TaskDefinition> tdef, String name, int port, int mult) {
+		return instantiate(tdef, name, port, 0, mult);
+	}
+	
+	public static HttpTask instantiate(Class<? extends TaskDefinition> tdef, String name, int port, int slowdownLoop, int mult) {
 		try {
-			return tdef.getConstructor().newInstance().instantiate(port, slowdownLoop, mult);
+			return tdef.getConstructor().newInstance().instantiate(port, name, slowdownLoop, mult);
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -111,10 +116,14 @@ public abstract class TaskDefinition {
 		return null;
 	}
 	
-	protected HttpTask instantiate(int port, int slowdownLoop, int mult) {
+	protected HttpTask instantiate(int port, String name, int slowdownLoop, int mult) {
 		Class<? extends TaskDefinition> tdef = this.getClass();
 		TaskDef td = tdef.getAnnotation(TaskDef.class);
-		String taskName = td.name();
+		String taskName;
+		if(name == null)
+			taskName = td.name();
+		else
+			taskName = name;
 		FIFO fifo = new FIFO(mult);
 		String fsPath = null;
 		if(td.filePath().length() > 0)

@@ -19,7 +19,7 @@ public class TaskDirectory {
 	private static URI registry;
 	
 	public static HttpTask instantiateRegistry(int port) {
-		var ht = new Registry().instantiate(port, 0, 1);
+		var ht = new Registry().instantiate(port, null, 0, 1);
 		setRegistry(URI.create("http://localhost:"+port));
 		return ht;
 	}
@@ -50,8 +50,14 @@ public class TaskDirectory {
 	}
 	
 	public static void register(Class<? extends TaskDefinition> tdef, int port) throws IOException {
+		register(tdef, null, port);
+	}
+	
+	public static void register(Class<? extends TaskDefinition> tdef, String name, int port) throws IOException {
 		TaskDef td = tdef.getAnnotation(TaskDef.class);
 		String taskName = td.name();
+		if(name != null)
+			taskName = name;
 		ArrayList<NameValuePair> registerArgs = new ArrayList<>();
 		registerArgs.add(new BasicNameValuePair("ms",taskName));
 		registerArgs.add(new BasicNameValuePair("port",port+""));

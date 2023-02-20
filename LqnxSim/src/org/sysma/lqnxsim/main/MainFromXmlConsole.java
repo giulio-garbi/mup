@@ -63,7 +63,7 @@ public class MainFromXmlConsole {
 		while(time.compareTo(stopAt)<0) {
 			if(lastSec < time.toSeconds()) {
 				lastSec = time.toSeconds();
-				System.out.println(lastSec+" s");
+				//System.out.println(lastSec+" s");
 			}
 			mdl.advance();
 			time = Duration.between(Instant.EPOCH, mdl.getClock());
