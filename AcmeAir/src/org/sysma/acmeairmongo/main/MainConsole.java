@@ -52,8 +52,8 @@ public class MainConsole {
 		startTask(MainTask.class, tp_main, rep_main, tasks);
 		
 		ClientTask cli = new ClientTask();
-		cli.startRegistry(Duration.ofSeconds(50),ncli, (i)->new String[] {"uid"+(i+1)+"@email.com", "password"});
-		var tdumps = cli.startRegistry(Duration.ofSeconds(500),ncli, (i)->new String[] {"uid"+(i+1)+"@email.com", "password"});
+		cli.startRegistry(Duration.ofSeconds(100),ncli, (i)->new String[] {"uid"+(i+1)+"@email.com", "password"});
+		var tdumps = cli.startRegistry(Duration.ofSeconds(1200),ncli, (i)->new String[] {"uid"+(i+1)+"@email.com", "password"});
 		
 		var pw = new PrintWriter(outfn);
 		
