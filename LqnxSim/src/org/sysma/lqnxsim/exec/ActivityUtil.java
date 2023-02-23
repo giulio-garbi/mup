@@ -26,9 +26,10 @@ public class ActivityUtil {
 		} else if (act.hostDemandCvsq <= 0) {
 			nanos = meanNanos;
 		} else {
-			var cvsq = act.hostDemandCvsq;
+			/*var cvsq = act.hostDemandCvsq;
 			var cv = Math.sqrt(cvsq);
-			nanos = (long) (Math.max(0, 1.0+rand.nextGaussian()*(cv)) * meanNanos);
+			nanos = (long) (Math.max(0, 1.0+rand.nextGaussian()*(cv)) * meanNanos);*/
+			nanos = (long)(nextExp(rand) * meanNanos);
 		}
 		return Duration.ofNanos(nanos);
 	}

@@ -7,6 +7,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.sysma.lqnxsim.model.Activity;
 import org.sysma.lqnxsim.model.ForwardingActivity;
@@ -131,12 +132,17 @@ public class Task {
 	
 	public HashMap<String, ArrayList<Duration>> responseTimes = new HashMap<>();
 	
+	private static Duration expd(long nanos) {
+		long nn = (long)(-Math.log(1-ThreadLocalRandom.current().nextDouble())*nanos);
+	    return  Duration.ofNanos(nn);
+	}
+	
 	public void call(String entry, CallEvent initiated) {
 		var client = new ExternalCall<>(entry, initiated, null);
 		if(freeThreads > 0) {
 			freeThreads--;
 			actuallyStartCall(client);
-		} else if(freeThreads < -100) {
+		} else if(freeThreads < -1000) {
 			actuallyStartCall(client);
 		} else {
 			pendingCalls.add(client);
@@ -148,7 +154,7 @@ public class Task {
 		if(freeThreads > 0) {
 			freeThreads--;
 			actuallyStartCall(client);
-		} else if(freeThreads < -100) {
+		} else if(freeThreads < -1000) {
 			actuallyStartCall(client);
 		} else {
 			pendingCalls.add(client);
@@ -167,7 +173,7 @@ public class Task {
 	
 	public void advance(BusyEvent evt) {
 		if(evt.activity.call != null && evt.activity.call.length > 0) {
-			var netSendTime = Duration.ofNanos((long)((evt.activity.call[0].netSendTime) * 1000_000_000L));
+			var netSendTime = expd((long)((evt.activity.call[0].netSendTime) * 1000_000_000L));
 			CallEvent call = new CallEvent(evt.task, evt.client, model.getClock().plus(netSendTime), evt.activity, 0);
 			model.event(call);
 		} else {
@@ -176,7 +182,7 @@ public class Task {
 	}
 	public void response(CallEvent evt) {
 		if(evt.activity.call.length > evt.which+1) {
-			var netSendTime = Duration.ofNanos((long)((evt.activity.call[evt.which+1].netSendTime) * 1000_000_000L));
+			var netSendTime = expd((long)((evt.activity.call[evt.which+1].netSendTime) * 1000_000_000L));
 			CallEvent call = new CallEvent(evt.task, evt.client, model.getClock().plus(netSendTime), evt.activity, evt.which+1);
 			model.event(call);
 		} else {
@@ -206,7 +212,7 @@ public class Task {
 		if(this.amClient) {
 			var client = new ExternalCall<>(startActivity.keySet().iterator().next(), null, null);
 			this.actuallyStartCall(client);
-		} else if(this.freeThreads > -100) {
+		} else if(this.freeThreads > -1000) {
 			this.freeThreads++;
 			while(!pendingCalls.isEmpty() && this.freeThreads>0) {
 				this.freeThreads--;
@@ -220,11 +226,11 @@ public class Task {
 			return Duration.ZERO;
 		else if(x instanceof CallEvent) {
 			var ce = (CallEvent)x;
-			return Duration.ofNanos((long)((ce.activity.call[ce.which].netRcvTime) * 1000_000_000L));
+			return expd((long)((ce.activity.call[ce.which].netRcvTime) * 1000_000_000L));
 		}
 		else if(x instanceof FwdCallEvent) {
 			var ce = (FwdCallEvent)x;
-			return Duration.ofNanos((long)((ce.call.netRcvTime) * 1000_000_000L));
+			return expd((long)((ce.call.netRcvTime) * 1000_000_000L));
 		}
 		else {
 			throw new Error();
@@ -298,7 +304,7 @@ public class Task {
 	
 	private void doFwdActivity(ForwardingActivity fwdAct, ExternalCall<?> client) {
 		FreeThreadEvent fte = new FreeThreadEvent(this, model.getClock());
-		var netSendTime = Duration.ofNanos((long)(((fwdAct.call[0].netSendTime)+fwdAct.fwdAfterTime) * 1000_000_000L));
+		var netSendTime = expd((long)(((fwdAct.call[0].netSendTime)+fwdAct.fwdAfterTime) * 1000_000_000L));
 		FwdCallEvent call = new FwdCallEvent(this, client, model.getClock().plus(netSendTime), fwdAct.call[0]);
 		model.event(fte);
 		model.event(call);

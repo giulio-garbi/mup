@@ -47,9 +47,9 @@ public class MainConsole {
 	}
 
 	public static void main(String[] args) throws IOException, InterruptedException {
-		if(args.length != 11) {
+		if(args.length != 12) {
 			System.out.println("Usage:\njava -jar fd.jar <log.json> <n_clients> "+
-				"<tp_fe> <rep_fe> <tp_be0> <rep_be0> <tp_be1> <rep_be1> <tp_st> <rep_st> <p0>");
+				"<tp_fe> <rep_fe> <tp_be0> <rep_be0> <tp_be1> <rep_be1> <tp_st> <rep_st> <p0> <runtime>");
 			return;
 		}
 		OpenCV.loadLocally();
@@ -66,6 +66,7 @@ public class MainConsole {
 		int tp_st = Integer.parseInt(args[8]);
 		int rep_st = Integer.parseInt(args[9]);
 		float p0 = Float.parseFloat(args[10]);
+		int rtsec = Integer.parseInt(args[11]);
 		
 		System.out.println("I&R Registry ");
 		var registry = TaskDirectory.instantiateRegistry(9099);
@@ -80,7 +81,7 @@ public class MainConsole {
 		
 		ClientTask cli = new ClientTask();
 		cli.startRegistry(Duration.ofSeconds(100),ncli, (i)->new String[] {String.valueOf(p0), String.valueOf(1-p0)});
-		var tdumps = cli.startRegistry(Duration.ofSeconds(1200),ncli, (i)->new String[] {String.valueOf(p0), String.valueOf(1-p0)});
+		var tdumps = cli.startRegistry(Duration.ofSeconds(rtsec),ncli, (i)->new String[] {String.valueOf(p0), String.valueOf(1-p0)});
 		
 		var pw = new PrintWriter(outfn);
 		
