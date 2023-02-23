@@ -79,8 +79,8 @@ public class MainConsole {
 		startTask(Backend.class, "backend1", tp_be1, rep_be1, tasks);
 		
 		ClientTask cli = new ClientTask();
-		cli.startRegistry(Duration.ofSeconds(50),ncli, (i)->new String[] {String.valueOf(p0), String.valueOf(1-p0)});
-		var tdumps = cli.startRegistry(Duration.ofSeconds(500),ncli, (i)->new String[] {String.valueOf(p0), String.valueOf(1-p0)});
+		cli.startRegistry(Duration.ofSeconds(100),ncli, (i)->new String[] {String.valueOf(p0), String.valueOf(1-p0)});
+		var tdumps = cli.startRegistry(Duration.ofSeconds(1200),ncli, (i)->new String[] {String.valueOf(p0), String.valueOf(1-p0)});
 		
 		var pw = new PrintWriter(outfn);
 		
