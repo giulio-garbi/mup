@@ -10,7 +10,7 @@ import org.sysma.schedulerExecutor.MainTaskDefinition;
 public class ClientTask extends MainTaskDefinition<String[]> {
 	@Override
 	public void main(Communication comm, String[] arg) throws InterruptedException {
-		int imgId = ThreadLocalRandom.current().nextInt(3455);
+		int imgId = 3454;
 		try {
 			byte[] img;
 			var resp1 = comm.asyncCallRegistry("frontend", "GetVal", x->{}, "imgfile", "img_"+imgId+".jpg", "storage-extraload", "0").get();
