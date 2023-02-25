@@ -9,7 +9,7 @@ do
 	f7=`echo $f | cut -d '-' -f 7`
 	f8=`echo $f | cut -d '-' -f 8`
 	f9=`echo $f | cut -d '-' -f 9`
-	java -Djava.compiler=NONE -Xint -jar fd.jar ~/mupdata/fd-$f-0.5.json $f1 $f2 $f3 $f4 $f5 $f6 $f7 $f8 $f9 0.5
+	java -Djava.compiler=NONE -Xint -jar fd.jar ~/mupdata/fd-$f-0.5.json $f1 $f2 $f3 $f4 $f5 $f6 $f7 $f8 $f9 0.5 3000 3750 525
 done
  
 java -jar modeltraces.jar util ~/mupdata/fd-1-1-1-1-1-1-1-1-1-0.5.json ~/mupdata/fd-1-1-1-1-1-1-1-1-1-0.5.util.csv
