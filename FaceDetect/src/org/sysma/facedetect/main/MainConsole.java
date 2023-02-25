@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.time.Duration;
 import java.util.ArrayList;
 
-import org.opencv.objdetect.CascadeClassifier;
+import org.opencv.core.Core;
 import org.sysma.facedetect.services.Backend;
 import org.sysma.facedetect.services.ClientTask;
 import org.sysma.facedetect.services.Frontend;
@@ -53,6 +53,7 @@ public class MainConsole {
 			return;
 		}
 		OpenCV.loadLocally();
+		Core.setNumThreads(0);
 		Storage.load();
 		
 		String outfn = args[0];

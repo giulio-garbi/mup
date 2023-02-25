@@ -19,9 +19,7 @@ import com.lambdaworks.redis.RedisURI;
 
 import io.netty.util.internal.ThreadLocalRandom;
 
-@TaskDef(name="storage"//,
-//filePath="acmeair_base/"
-)
+@TaskDef(name="storage")
 public class Storage extends TaskDefinition {
 	private static int REDIS_PORT = 6379;
 	static RedisClient redisClient = new RedisClient(
@@ -30,11 +28,15 @@ public class Storage extends TaskDefinition {
 
 	
 	private static int slowdown() {
-		/*long k=1;
-		for(long i=0; i<2_000_000L; i++)
-			k += i*i;
-		return (int)k;*/
-		return 0;
+		long k=1;
+		try {
+			Thread.sleep(30);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		k += 9*9;
+		return (int)k;
 	}
 	
 	public static void setup() throws IOException {
@@ -52,25 +54,16 @@ public class Storage extends TaskDefinition {
 	
 	@EntryDef("/store/")
 	public void StorageSet(Communication comm) throws Exception {
+		int z = slowdown();
 		if(comm.getRequestMethod().equals("POST")) {
 			var params = comm.getPostParametersFiles();
 			if(!params.containsKey("files")) {
-				comm.respond(200, "<!doctype html>\n<title>Storage</title>\n<h1>Storage, send POST with thing to store</h1>\n</form>".getBytes());
+				comm.respond(200+z*0, "<!doctype html>\n<title>Storage</title>\n<h1>Storage, send POST with thing to store</h1>\n</form>".getBytes());
 				return;
 			}
-		    RedisConnection<String, String> r = redisClient.connect();
-		    
-		    var fn_file = params.get("files").split("\\|",2);
-		    var file_data = fn_file[1];
-		    var filename = fn_file[0].split("\\.")[0];
-		    var storage_extraload = Integer.parseInt(params.getOrDefault("storage-extraload", "5"));
-		    r.set(filename, file_data);
-		    for(int i=0; i<storage_extraload; i++)
-		    	r.set(filename + "_" + i, file_data);
 		    var node_name = System.getenv("NODE_NAME");
 		    if(node_name == null || node_name.length() == 0)
 		        node_name = "localhost";
-		    r.close();
 		    comm.respond(200, ("{storage_name:\""+node_name+"\"}").getBytes(), "x-upstream-ip", "?", "Content-Type", "application/json");
 		} else {
 			comm.respond(200, "<!doctype html>\n<title>Storage</title>\n<h1>Storage, send POST with thing to store</h1>\n</form>".getBytes());
