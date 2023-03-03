@@ -63,6 +63,7 @@ public class Util {
 	}
 
 	public static long getDateMidnight(int year, int month, int date) {
+		java.util.TimeZone.setDefault(java.util.TimeZone.getTimeZone("Europe/Rome"));
 		var cal = Calendar.getInstance();
 		cal.set(Calendar.DATE, date);
 		cal.set(Calendar.MONTH, month);
