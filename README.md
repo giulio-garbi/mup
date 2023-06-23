@@ -143,6 +143,6 @@ The `java -jar lqnexec.jar <model.lqnx> stats` invocation reads the model in `<m
 
 ## Paper supplementary material
 
-To make the paper easier to understand, we provide a [replication package](https://drive.google.com/file/d/1soqHQgtPsVrnngrVSUIpqorujRcSrIfv/view?usp=sharing), i.e., the logs used to generate the models and of the whatif cases (W1, W2, and W3) used in Section 4 for each considered case study, together with the observed and simulated response times and utilizations;
+To make the paper easier to understand, we provide a [replication package](https://doi.org/10.5281/zenodo.8075174), i.e., the logs used to generate the models and of the whatif cases (W1, W2, and W3) used in Section 4 for each considered case study, together with the observed and simulated response times and utilizations;
 
 For presentation purposes only (i.e., renaming and lightening of the implementation details), the API of this implementation slightly differs from the one outlined in the paper.
